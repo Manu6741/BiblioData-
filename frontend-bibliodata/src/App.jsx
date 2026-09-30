@@ -1,37 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import appLogo from '/favicon.svg'
-import PWABadge from './PWABadge.jsx'
-import './App.css'
+import { Navigate, Route, Routes } from 'react-router-dom';
+import PWABadge from './PWABadge';
+import Marco from './components/Marco';
+import RutaPrivada from './components/RutaPrivada';
+import RutaRol from './components/RutaRol';
+import Alertas from './pages/Alertas';
+import Catalogo from './pages/Catalogo';
+import Historial from './pages/Historial';
+import Login from './pages/Login';
+import Panel from './pages/Panel';
+import Prestamos from './pages/Prestamos';
+import Reportes from './pages/Reportes';
+import Usuarios from './pages/Usuarios';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={appLogo} className="logo" alt="frontend-bibliodata logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>frontend-bibliodata</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route element={<RutaPrivada><Marco /></RutaPrivada>}>
+          <Route path="/panel" element={<Panel />} />
+          <Route path="/catalogo" element={<Catalogo />} />
+          <Route path="/prestamos" element={<Prestamos />} />
+          <Route path="/historial" element={<RutaRol tipos={['administrador', 'bibliotecario']}><Historial /></RutaRol>} />
+          <Route path="/usuarios" element={<RutaRol tipos={['administrador']}><Usuarios /></RutaRol>} />
+          <Route path="/reportes" element={<RutaRol tipos={['administrador', 'bibliotecario']}><Reportes /></RutaRol>} />
+          <Route path="/alertas" element={<RutaRol tipos={['administrador', 'bibliotecario']}><Alertas /></RutaRol>} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
       <PWABadge />
     </>
-  )
+  );
 }
-
-export default App

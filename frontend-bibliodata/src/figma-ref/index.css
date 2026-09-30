@@ -39,31 +39,47 @@
   --radius: 4px;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: 'Lora', Georgia, serif;
   background-color: var(--background);
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
-  margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6, .font-display {
+h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', Georgia, serif;
 }
 
-.font-body { font-family: 'Lora', Georgia, serif; }
-.font-mono { font-family: 'JetBrains Mono', monospace; }
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
 
+.font-body {
+  font-family: 'Lora', Georgia, serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--secondary); }
 
-.paper-texture { position: relative; }
+/* Paper texture overlay */
+.paper-texture {
+  position: relative;
+}
 .paper-texture::before {
   content: '';
   position: absolute;
@@ -74,13 +90,18 @@ h1, h2, h3, h4, h5, h6, .font-display {
   z-index: 0;
 }
 
-.transition-base { transition: all 0.18s ease; }
+/* Transitions */
+.transition-base {
+  transition: all 0.18s ease;
+}
 
+/* Active nav item */
 .nav-active {
-  background-color: rgba(184, 122, 46, 0.22);
+  background-color: var(--primary);
   color: var(--primary-foreground);
 }
 
+/* Stat bar */
 .stat-bar {
   height: 4px;
   background: var(--muted);
@@ -94,15 +115,17 @@ h1, h2, h3, h4, h5, h6, .font-display {
   transition: width 0.6s ease;
 }
 
+/* Book spine effect on cards */
 .book-card {
   border-left: 5px solid var(--accent);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 .book-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(38, 21, 9, 0.14);
+  box-shadow: 0 8px 24px rgba(38,21,9,0.14);
 }
 
+/* Badge */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -121,6 +144,7 @@ h1, h2, h3, h4, h5, h6, .font-display {
 .badge-librarian { background: #E8D5F0; color: #4A1A5C; }
 .badge-student { background: var(--muted); color: var(--muted-foreground); }
 
+/* Input styling */
 input, select, textarea {
   font-family: 'Lora', Georgia, serif;
   background-color: #F5EDD6;
@@ -132,13 +156,14 @@ input, select, textarea {
 }
 input:focus, select:focus, textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(184, 122, 46, 0.18);
+  box-shadow: 0 0 0 2px rgba(184,122,46,0.18);
 }
 
+/* Modal backdrop */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(38, 21, 9, 0.55);
+  background: rgba(38,21,9,0.55);
   backdrop-filter: blur(2px);
   z-index: 50;
   display: flex;
@@ -146,12 +171,8 @@ input:focus, select:focus, textarea:focus {
   justify-content: center;
   padding: 1rem;
 }
-.modal-panel {
-  width: 100%;
-  max-height: min(90vh, 760px);
-  overflow: auto;
-}
 
+/* Ornamental divider */
 .ornament {
   display: flex;
   align-items: center;
@@ -166,12 +187,7 @@ input:focus, select:focus, textarea:focus {
   background: var(--border);
 }
 
-.app-shell {
-  display: flex;
-  min-height: 100vh;
-  min-height: 100dvh;
-}
-
+/* Sidebar */
 .sidebar {
   width: 240px;
   min-width: 240px;
@@ -180,54 +196,19 @@ input:focus, select:focus, textarea:focus {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  height: 100dvh;
   position: sticky;
   top: 0;
 }
 
-.barra-superior { display: none; }
-.nav-texto { white-space: nowrap; }
-
-.btn-primario {
-  background: var(--primary);
-  color: var(--primary-foreground);
-  border-radius: var(--radius);
-  font-weight: 600;
-}
-.btn-primario:disabled { opacity: 0.65; }
-
-.aviso-error {
-  background: #F8D7DA;
-  color: #7A1A1A;
-  border: 1px solid #E4A0A8;
-  border-radius: var(--radius);
-  padding: 0.75rem 1rem;
-  font-size: 0.875rem;
-}
-
-/* Tablet: riel de iconos y barra superior con el logo */
-@media (max-width: 1099px) {
+@media (max-width: 1024px) {
   .sidebar {
-    width: 72px;
-    min-width: 72px;
+    width: 64px;
+    min-width: 64px;
   }
-  .sidebar-label, .nav-texto { display: none; }
-  .barra-superior {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.7rem 1rem;
-    background: var(--primary);
-    color: var(--primary-foreground);
-    position: sticky;
-    top: 0;
-    z-index: 30;
-  }
+  .sidebar-label { display: none; }
 }
 
-/* Celular: encabezado fijo y navegación inferior */
-@media (max-width: 767px) {
+@media (max-width: 640px) {
   .sidebar {
     position: fixed;
     bottom: 0;
@@ -235,32 +216,13 @@ input:focus, select:focus, textarea:focus {
     left: 0;
     right: 0;
     width: 100%;
-    min-width: 0;
-    height: 64px;
+    height: 60px;
     flex-direction: row;
     z-index: 40;
   }
-  .sidebar-logo,
-  .sidebar-pie { display: none; }
-  .sidebar-nav {
-    flex-direction: row;
-    overflow-x: auto;
-    padding: 0 0.25rem;
-    width: 100%;
-  }
-  .sidebar-nav-item {
-    flex-direction: column;
-    justify-content: center;
-    gap: 2px;
-    padding: 6px 10px;
-    min-width: 68px;
-    font-size: 0.62rem;
-  }
-  .nav-texto {
-    display: block;
-    font-size: 0.62rem;
-    line-height: 1.1;
-    text-align: center;
-  }
-  .main-content { padding-bottom: 80px; }
+  .sidebar-label { display: none; }
+  .sidebar-logo { display: none; }
+  .sidebar-nav { flex-direction: row; overflow-x: auto; padding: 0; }
+  .sidebar-nav-item { flex-direction: column; gap: 2px; padding: 8px 12px; font-size: 0.6rem; }
+  .main-content { padding-bottom: 68px; }
 }
