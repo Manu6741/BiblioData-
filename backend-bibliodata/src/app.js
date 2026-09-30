@@ -11,8 +11,17 @@ const origenes = (process.env.CORS_ORIGIN || 'http://localhost:5173')
   .filter(Boolean);
 
 function origenPermitido(origen) {
-  if (!origen || origenes.includes(origen)) {
+  if (!origen || origenes.includes('*') || origenes.includes(origen)) {
     return true;
+  }
+
+  try {
+    const url = new URL(origen);
+    if (url.hostname === 'localhost' || url.hostname === '127.0.0.1' || url.hostname.endsWith('.vercel.app')) {
+      return true;
+    }
+  } catch {
+    return false;
   }
 
   const alterno = origen.includes('://127.0.0.1')
@@ -38,6 +47,15 @@ app.use(async (req, res, next) => {
     console.error('No se pudo preparar la base de datos.', error);
     res.status(503).json({ error: 'No se pudo conectar con la base de datos.' });
   }
+});
+
+app.get('/', (req, res) => {
+  res.json({
+    ok: true,
+    servicio: 'BiblioData+',
+    mensaje: 'API de la biblioteca virtual.',
+    salud: '/api/salud',
+  });
 });
 
 app.get('/api/salud', (req, res) => {

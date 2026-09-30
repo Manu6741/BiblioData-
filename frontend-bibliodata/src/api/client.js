@@ -1,4 +1,7 @@
-const API = (import.meta.env.VITE_API_URL || 'http://localhost:4000').replace(/\/$/, '');
+const API = (
+  import.meta.env.VITE_API_URL
+  || (import.meta.env.PROD ? 'https://biblio-data.vercel.app' : 'http://localhost:4000')
+).replace(/\/$/, '');
 
 export async function api(ruta, opciones = {}) {
   const { method = 'GET', body, token } = opciones;

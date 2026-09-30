@@ -46,7 +46,9 @@ Crea dos proyectos a partir de este repositorio.
 
 - Root Directory: `frontend-bibliodata`
 - Framework: Vite
-- Variable de entorno, antes del build: `VITE_API_URL` con la URL pública del backend, sin barra final.
+- Variable de entorno, antes del build: `VITE_API_URL=https://biblio-data.vercel.app`
+
+Esa misma dirección ya está en `frontend-bibliodata/.env.production`, así que el build de Vercel la usa aunque no la copies en el panel.
 
 **Backend**
 
